@@ -35,7 +35,7 @@ class Router
         $action = self::$routers[$method][$path] ?? false;
 
         if(!$action) {
-            $this->render->_404();
+            $this->render->view('_404');
             exit();
         }
         //404 Handling -- Pending----

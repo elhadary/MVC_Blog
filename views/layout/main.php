@@ -1,79 +1,119 @@
 <!doctype html>
-<html class="h-full bg-gray-100">
+<html class="h-full bg-gray-200">
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"
+            rel="stylesheet"/>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css"/>
+    <script src="https://cdn.tailwindcss.com/3.2.4"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                fontFamily: {
+                    sans: ["Roboto", "sans-serif"],
+                    body: ["Roboto", "sans-serif"],
+                    mono: ["ui-monospace", "monospace"],
+                },
+            },
+            corePlugins: {
+                preflight: false,
+            },
+        };
+    </script>
 </head>
 <body>
-<nav class="bg-gray-800">
-    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div class="relative flex h-16 items-center justify-between">
-            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                <!-- Mobile menu button-->
-                <button type="button" class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <!--
-                      Icon when menu is closed.
-
-                      Menu open: "hidden", Menu closed: "block"
-                    -->
-                    <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                    <!--
-                      Icon when menu is open.
-
-                      Menu open: "block", Menu closed: "hidden"
-                    -->
-                    <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+    <nav class="relative flex w-full flex-wrap items-center justify-between bg-neutral-900 py-3 text-neutral-200 shadow-lg lg:flex-wrap lg:justify-start" data-te-navbar-ref>
+        <div class="flex w-full flex-wrap items-center justify-between px-6">
+            <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto" id="navbarSupportedContent4" data-te-collapse-item>
+                <a class="pr-2 text-xl font-semibold text-white" href="/">Homepage</a>
+                <!-- Left links -->
+                <ul class="list-style-none mr-auto flex flex-col pl-0 lg:flex-row" data-te-navbar-nav-ref>
+                    <li class="p-2" data-te-nav-item-ref><a class="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" href="/dasdas" data-te-nav-link-ref
+                        >404</a>
+                    </li>
+                </ul>
+                <!-- Left links -->
             </div>
-            <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div class="flex flex-shrink-0 items-center">
+            <!-- Collapsible wrapper -->
+
+            <!-- Right elements -->
+            <div class="relative flex items-center">
+
+                <!-- GUEST -->
+
+                <ul class="list-style-none mr-auto flex flex-col pl-0 lg:flex-row" data-te-navbar-nav-ref>
+
+                    <li class="p-2" data-te-nav-item-ref><a class="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" href="/login" data-te-nav-link-ref
+                        >Login</a>
+                    </li>
+                    <li class="p-2" data-te-nav-item-ref><a class="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" href="/register" data-te-nav-link-ref
+                        >Register</a>
+                    </li>
+                </ul>
+
+                <!-- Icon -->
+                <div class="relative" data-te-dropdown-ref>
+                    <a
+                            class="hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
+                            href="#"
+                            id="dropdownMenuButton2"
+                            role="button"
+                            data-te-dropdown-toggle-ref
+                            aria-expanded="false">
+                        <img
+                                src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
+                                class="rounded-full"
+                                style="height: 25px; width: 25px"
+                                alt=""
+                                loading="lazy" />
+                    </a>
+                    <ul
+                            class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
+                            aria-labelledby="dropdownMenuButton2"
+                            data-te-dropdown-menu-ref>
+                        <li>
+                            <a
+                                    class="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                                    href="#"
+                                    data-te-dropdown-item-ref
+                            >Action</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                    class="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                                    href="#"
+                                    data-te-dropdown-item-ref
+                            >Another action</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                    class="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                                    href="#"
+                                    data-te-dropdown-item-ref
+                            >Something else here</a
+                            >
+                        </li>
+                    </ul>
                 </div>
-                <div class="hidden sm:ml-6 sm:block">
-                    <div class="flex space-x-4">
-                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
-
-                        <a href="/dsadas" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">404</a>
-                    </div>
-                </div>
             </div>
-            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Sign in</a>
-                <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Register</a>
-
+            <!-- Right elements -->
+        </div>
+    </nav>
+    <div class="min-h-full">
+        <main>
+            <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+                {{content}}
             </div>
-        </div>
+        </main>
     </div>
+<script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
 
-    <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="sm:hidden" id="mobile-menu">
-        <div class="space-y-1 px-2 pt-2 pb-3">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="/" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Home</a>
-
-            <a href="/rhfghfg" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">404</a>
-
-
-        </div>
-    </div>
-</nav>
-<div class="min-h-full">
-    <header class="bg-white shadow">
-        <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900"><?php echo $title ?? 'Homepage' ?></h1>
-        </div>
-    </header>
-    <main>
-        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            {{content}}
-        </div>
-    </main>
-</div>
 </body>
 </html>
