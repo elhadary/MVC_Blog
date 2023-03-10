@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Fares\\Mvc2\\' => array($baseDir . '/src'),
+    'app\\' => array($baseDir . '/'),
 );
