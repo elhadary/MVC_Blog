@@ -36,15 +36,21 @@ class Model
 
     public function insert($array = [])
     {
-        $array = [
-          'email' => 'fareselhadary@gmail.com',
-          'password' => '123456'
-        ];
+
+        $columns = '(';
+        $values = '(';
+
         foreach ($array as $key => $value)
         {
+            $columns .= $key;
+            array_key_last($array) !== $key ? $columns .= ',' : $columns .= ')';
 
+            $values .= "'$value'";
+            array_key_last($array) !== $key ? $values .= ',' : $values .= ')';
         }
-        $this->query = "INSERT INTO `$this->table` ";
+
+        $this->query = "INSERT INTO `$this->table` $columns VALUES $values";
+        return $this;
     }
 
     public function delete()
@@ -75,18 +81,18 @@ class Model
 
     public function where($one,$condition,$two)
     {
-        $this->query .= "WHERE `$one` $condition $two ";
+        $this->query .= "WHERE `$one` $condition '$two' ";
         return $this;
     }
 
     public function or($one,$condition,$two)
     {
-        $this->query .= "OR `$one` $condition $two ";
+        $this->query .= "OR `$one` $condition '$two' ";
         return $this;
     }
     public function and($one,$condition,$two)
     {
-        $this->query .= "AND `$one` $condition $two ";
+        $this->query .= "AND `$one` $condition '$two' ";
         return $this;
     }
     public function limit($max)
@@ -99,12 +105,18 @@ class Model
     public function exec() //EXECUTE
     {
         $this->stmt = $this->conn->prepare($this->query);
-        return $this->stmt->execute();
+        try {
+            $this->stmt->execute();
+        }catch (\Exception $e)
+        {
+            echo $e->getMessage();
+            header( "refresh:3;url=/register" );
+        }
+
     }
 
     public function fetch()
     {
-
         $this->result = $this->conn->query($this->query)->fetch();
         return $this->result;
     }

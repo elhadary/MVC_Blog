@@ -9,13 +9,12 @@ class UserController extends Controller
     public User $user;
     public function __construct()
     {
+        parent::__construct();
         $this->user = new User();
-
     }
 
     public function dashboard()
     {
-        $test = $this->user->insert();
-        dd($test);
+
     }
 }
