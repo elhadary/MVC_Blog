@@ -14,7 +14,12 @@ class Request
     {
         $uri = $_SERVER['REQUEST_URI'];
 
-        return explode('?',$uri)[0];
+        $route = explode('?',$uri)[0];
+        if($route == '/')
+        {
+            return '/';
+        }
+        return rtrim($route,'/');
 
     }
 

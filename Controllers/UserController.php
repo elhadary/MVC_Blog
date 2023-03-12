@@ -15,8 +15,17 @@ class UserController extends Controller
         $this->user = new User();
     }
 
+
+
     public function dashboard()
     {
+        if($this->user->Auth()['rank'] !== 1)
+        {
+            $this->render->view('User.index');
+        }else
+        {
+            $this->render->view('Admin.index');
+        }
 
     }
 }

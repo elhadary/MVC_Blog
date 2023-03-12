@@ -8,7 +8,8 @@ use app\Core\Router;
 
 require '../Support/bootstrap.php';
 
-
 $app = new Application();
+
+
 
 $app->run();

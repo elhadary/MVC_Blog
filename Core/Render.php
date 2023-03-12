@@ -2,6 +2,8 @@
 
 namespace app\Core;
 
+use app\Models\User;
+
 class Render
 {
     public $content = '';
@@ -57,7 +59,21 @@ class Render
     {
         ob_start();
         extract($args);
-        include basePath('views/layout/main.php');
+        if(isset($_SESSION['email']))
+        {
+            if((new User)->Auth()['rank'] == 1){
+                include basePath('views/layout/admin.php');
+            }else
+            {
+                include basePath('views/layout/main.php');
+
+            }
+        }else
+        {
+            include basePath('views/layout/main.php');
+
+        }
+
         return ob_get_clean();
     }
 

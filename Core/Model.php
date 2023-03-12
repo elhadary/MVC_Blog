@@ -114,6 +114,11 @@ class Model
         }
 
     }
+    public function fetchAll()
+    {
+        $this->result = $this->conn->query($this->query)->fetchAll();
+        return $this->result;
+    }
 
     public function fetch()
     {

@@ -3,12 +3,13 @@
 namespace app\Controllers;
 
 use app\Core\Controller;
+use app\Core\Session;
 use app\Models\User;
 
 class AuthController extends Controller
 {
     public User $user;
-
+    public array $variables = [];
     public function __construct()
     {
         parent::__construct();
@@ -17,37 +18,43 @@ class AuthController extends Controller
 
     public function login()
     {
-        $this->render->view('Auth.login');
+        $array = [
+          'title' => 'Login'
+        ];
+        $this->render->view('Auth.login',$array);
     }
 
     public function postLogin()
     {
+        $this->variables['title'] = 'Login';
 
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $email = $this->validation->validate($email,['email','max:30']);
+        $email = $this->validation->validate($email,['email','max:50']);
         $emailInput = $email->input;
-        $password = $this->validation->validate($password,['min:5','max:30']);
+        $password = $this->validation->validate($password,['min:5','max:50']);
         $passwordInput = $password->input;
 
         if(!empty($email->errors) OR !empty($password->errors))
         {
-            $array = $email->errors + $password->errors;
-            $this->render->view('Auth.login',['errors' => $array]);
+            $this->variables['errors'] = $email->errors + $password->errors;
+            $this->render->view('Auth.login',$this->variables);
             exit();
         }
 
         $user = $this->user->select()->where('email','=',$emailInput)->fetch();
         if(!$user)
         {
-            $this->render->view('Auth.login',['errors' => ['email' => 'Email doesn\'t exit in our database']]);
+            $this->variables['errors'] = ['email' => 'Email doesn\'t exit in our database'];
+            $this->render->view('Auth.login',$this->variables);
             exit();
         }
 
 
         if ($user['password'] == $passwordInput)
         {
-            $this->render->view('Auth.login',['success' => ['password' => 'Correct Password']]);
+            $_SESSION['email'] = $emailInput;
+            header('LOCATION: /dashboard');
         }else
         {
             $this->render->view('Auth.login',['errors' => ['password' => 'Wrong password']]);
@@ -56,11 +63,15 @@ class AuthController extends Controller
 
     public function register()
     {
-        $this->render->view('Auth.register');
+        $array = [
+            'title' => 'Register'
+        ];
+        $this->render->view('Auth.register',$array);
     }
 
     public function postRegister()
     {
+        $this->variables['title'] = 'Register';
         $email = $_POST['email'];
         $password = $_POST['password'];
         $email = $this->validation->validate($email,['email']);
@@ -70,8 +81,8 @@ class AuthController extends Controller
 
         if(!empty($email->errors) OR !empty($password->errors))
         {
-            $array = $email->errors + $password->errors;
-            $this->render->view('Auth.login',['errors' => $array]);
+            $this->variables['errors'] = $email->errors + $password->errors;
+            $this->render->view('Auth.login',$this->variables);
             exit();
         }
 
@@ -79,7 +90,8 @@ class AuthController extends Controller
         // Check if email already exist
         if($this->user->select()->where('email','=',$emailInput)->fetch())
         {
-            $this->render->view('Auth.register',['errors' => ['email' => 'This email already exist in our database']]);
+            $this->variables['errors'] = ['This email already exist in our database'];
+            $this->render->view('Auth.register',$this->variables);
             exit();
         }
 
@@ -87,6 +99,13 @@ class AuthController extends Controller
             'email' => $emailInput,
             'password' => $passwordInput
         ])->exec();
-        $this->render->view('Auth.register',['success' => ['email' => 'Email registered successfully']]);
+        $this->variables['success'] =  ['Email registered successfully'];
+        $this->render->view('Auth.register',$this->variables);
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        header('LOCATION: /');
     }
 }

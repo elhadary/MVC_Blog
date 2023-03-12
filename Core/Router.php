@@ -2,45 +2,69 @@
 
 namespace app\Core;
 
+use app\Core\Middleware\Middleware;
+
 class Router
 {
-    protected static array $routers = [];
+    public static array $routes = [];
     public Request $request;
     public Render $render;
+    public Middleware $middleware;
+    public array $lastRouter;
 
     public function __construct()
     {
         $this->request = new Request();
         $this->render = new Render();
     }
-    protected function add($method,$path,$callback)
+
+    public function only($rank)
     {
-        self::$routers[$method][$path] = $callback;
+        // $routes['get']['/register'][$callback] = [$rank]
+        self::$routes[$this->lastRouter['method']][$this->lastRouter['path']]['middleware'] = $rank;
     }
 
-    public static function get($path, $callback)
+    protected function add($method,$path,$callback,$middleware = null)
     {
-        (new Router)->add('get',$path,$callback);
+        self::$routes[$method][$path] = $callback;
+        $this->lastRouter = [
+            'method' => $method,
+            'path' => $path,
+            'callback' => $callback
+        ];
     }
 
-    public static function post($path,$callback)
+    public function get($path, $callback)
     {
-        (new Router)->add('post',$path,$callback);
+        $this->add('get',$path,$callback);
+        return $this;
+    }
+
+    public function post($path,$callback)
+    {
+        $this->add('post',$path,$callback);
+        return $this;
     }
 
     public function resolve()
     {
         $method = $this->request->getMethod();
         $path = $this->request->getPath();
-        $action = self::$routers[$method][$path] ?? false;
+        $action = self::$routes[$method][$path] ?? false;
+        if(isset(self::$routes[$method][$path]['middleware']))
+        {
+
+            (new Middleware)->resolve(self::$routes[$method][$path]['middleware']);
+        }
 
         if(!$action) {
+            response(404);
             $this->render->view('_404');
             exit();
         }
-        //404 Handling -- Pending----
 
         if(is_callable($action)) {
+
             call_user_func($action,[]);
         }
 
