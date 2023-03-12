@@ -8,7 +8,6 @@ class User extends Model
 
     public function Auth()
     {
-        if(isset($_SESSION['email']))
-        return $this->select()->where('email','=',$_SESSION['email'])->fetch();
+        if (isset($_SESSION['email'])) return $this->select()->where('email','=',$_SESSION['email'])->fetch();
     }
 }

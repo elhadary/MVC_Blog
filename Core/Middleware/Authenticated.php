@@ -6,10 +6,8 @@ class Authenticated
 {
     public function handle()
     {
-
-        if(!isset($_SESSION['email'])){
+        if (!isset($_SESSION['email'])) {
             header('Location: /');
         }
     }
-
 }

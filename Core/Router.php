@@ -20,13 +20,14 @@ class Router
 
     public function only($rank)
     {
-        // $routes['get']['/register'][$callback] = [$rank]
+        // $routes['get']['/register'][$callback] = [$rank];
         self::$routes[$this->lastRouter['method']][$this->lastRouter['path']]['middleware'] = $rank;
     }
 
     protected function add($method,$path,$callback,$middleware = null)
     {
         self::$routes[$method][$path] = $callback;
+
         $this->lastRouter = [
             'method' => $method,
             'path' => $path,
@@ -51,27 +52,20 @@ class Router
         $method = $this->request->getMethod();
         $path = $this->request->getPath();
         $action = self::$routes[$method][$path] ?? false;
-        if(isset(self::$routes[$method][$path]['middleware']))
-        {
+        if (isset(self::$routes[$method][$path]['middleware'])) (new Middleware)->resolve(self::$routes[$method][$path]['middleware']);
 
-            (new Middleware)->resolve(self::$routes[$method][$path]['middleware']);
-        }
-
-        if(!$action) {
+        if (!$action) {
             response(404);
             $this->render->view('_404');
             exit();
         }
 
-        if(is_callable($action)) {
-
+        if (is_callable($action)) {
             call_user_func($action,[]);
         }
 
-        if (is_array($action))
-        {
+        if (is_array($action)) {
             call_user_func([new $action[0],$action[1]]);
         }
     }
-
 }

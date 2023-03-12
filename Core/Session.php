@@ -8,5 +8,4 @@ class Session
     {
         session_start();
     }
-
 }

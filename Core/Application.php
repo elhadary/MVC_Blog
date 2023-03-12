@@ -14,10 +14,9 @@ class Application
         $this->request = new Request();
         $this->router = new Router();
     }
+
     public function run()
     {
-
         $this->router->resolve();
     }
-
 }

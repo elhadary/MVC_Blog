@@ -1,5 +1,7 @@
 <?php
 
+define("ROOT", $_SERVER['HTTP_HOST'] . '/');
+
 function dd($var)
 {
     echo '<pre>';
@@ -11,10 +13,6 @@ function basePath($path): string
 {
     return dirname(__DIR__).'/'.$path;
 }
-
-define("ROOT", $_SERVER['HTTP_HOST'] . '/');
-
-
 
 function response($code)
 {

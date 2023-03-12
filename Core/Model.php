@@ -14,7 +14,8 @@ class Model
     protected $query = '';
     public $error = "";
 
-    function __construct () {
+    function __construct ()
+    {
         if (Model::$conn === null) {
             Model::$conn = new PDO(
                 "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET,
@@ -36,8 +37,7 @@ class Model
         $columns = '(';
         $values = '(';
 
-        foreach ($array as $key => $value)
-        {
+        foreach ($array as $key => $value) {
             $columns .= $key;
             array_key_last($array) !== $key ? $columns .= ',' : $columns .= ')';
 
@@ -62,10 +62,9 @@ class Model
             'pass' => '123'
         ];
         $vars = '';
-        foreach ($array as $key => $value)
-        {
+        foreach ($array as $key => $value) {
             $vars .= "`$key` = $value";
-            if(array_key_last($array) !== $key)
+            if (array_key_last($array) !== $key)
             {
                 $vars .= " , ";
             }
@@ -124,7 +123,7 @@ class Model
 
     function __destruct ()
     {
-        if ($this->stmt!==null) { $this->stmt = null; }
-        if ($this->conn!==null) { $this->conn = null; }
+        if ($this->stmt !== null) $this->stmt = null;
+        if ($this->conn !== null) $this->conn = null;
     }
 }

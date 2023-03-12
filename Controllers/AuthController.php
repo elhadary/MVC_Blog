@@ -10,6 +10,7 @@ class AuthController extends Controller
 {
     public User $user;
     public array $variables = [];
+
     public function __construct()
     {
         parent::__construct();
@@ -35,28 +36,25 @@ class AuthController extends Controller
         $password = $this->validation->validate($password,['min:5','max:50']);
         $passwordInput = $password->input;
 
-        if(!empty($email->errors) OR !empty($password->errors))
-        {
+        if (!empty($email->errors) OR !empty($password->errors)) {
             $this->variables['errors'] = $email->errors + $password->errors;
             $this->render->view('Auth.login',$this->variables);
             exit();
         }
 
         $user = $this->user->select()->where('email','=',$emailInput)->fetch();
-        if(!$user)
-        {
+        if (!$user) {
             $this->variables['errors'] = ['email' => 'Email doesn\'t exit in our database'];
             $this->render->view('Auth.login',$this->variables);
             exit();
         }
 
 
-        if ($user['password'] == $passwordInput)
-        {
+        if ($user['password'] == $passwordInput) {
             $_SESSION['email'] = $emailInput;
             header('LOCATION: /dashboard');
-        }else
-        {
+        }
+        else {
             $this->render->view('Auth.login',['errors' => ['password' => 'Wrong password']]);
         }
     }
@@ -79,8 +77,7 @@ class AuthController extends Controller
         $password = $this->validation->validate($password,['min:5','max:30']);
         $passwordInput = $password->input;
 
-        if(!empty($email->errors) OR !empty($password->errors))
-        {
+        if (!empty($email->errors) OR !empty($password->errors)) {
             $this->variables['errors'] = $email->errors + $password->errors;
             $this->render->view('Auth.login',$this->variables);
             exit();
@@ -88,8 +85,7 @@ class AuthController extends Controller
 
 
         // Check if email already exist
-        if($this->user->select()->where('email','=',$emailInput)->fetch())
-        {
+        if ($this->user->select()->where('email','=',$emailInput)->fetch()) {
             $this->variables['errors'] = ['This email already exist in our database'];
             $this->render->view('Auth.register',$this->variables);
             exit();

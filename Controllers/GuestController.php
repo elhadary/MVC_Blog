@@ -10,7 +10,6 @@ class GuestController extends Controller
     public function index()
     {
         $users = (new User())->select()->fetchAll();
-        print_r($users);
         $this->render->view('index');
     }
 }

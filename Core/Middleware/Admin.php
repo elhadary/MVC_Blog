@@ -8,7 +8,7 @@ class Admin
 {
     public function handle()
     {
-        if((new User)->Auth()['rank'] !== 1){
+        if((new User)->Auth()['rank'] !== 1) {
             header('Location: /');
         }
     }

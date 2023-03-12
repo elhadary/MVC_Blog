@@ -32,26 +32,25 @@ class Render
         $content = $this->renderView($path,$args);
         $this->content = str_replace("{{content}}",$content,$layout);
 
-        if(isset($args['errors']))
-        {
+        if (isset($args['errors'])) {
             $alerts = $args['errors'];
             $this->renderAlert($this->content,$alerts,$this->danger);
 
-        }elseif(isset($args['success']))
-        {
+        }
+        elseif (isset($args['success'])) {
             $alerts = $args['success'];
             $this->renderAlert($this->content,$alerts,$this->success);
-        }else
-        {
+        }
+        else {
             $this->content = str_replace("{{alert}}",'',$this->content);
         }
+
         echo $this->content;
     }
 
     public function _404()
     {
         include basePath("views/_404.php");
-
     }
 
 
@@ -59,20 +58,12 @@ class Render
     {
         ob_start();
         extract($args);
-        if(isset($_SESSION['email']))
-        {
-            if((new User)->Auth()['rank'] == 1){
-                include basePath('views/layout/admin.php');
-            }else
-            {
-                include basePath('views/layout/main.php');
 
-            }
-        }else
-        {
-            include basePath('views/layout/main.php');
-
+        if (isset($_SESSION['email'])) {
+            if ((new User)->Auth()['rank'] == 1) include basePath('views/layout/admin.php');
+            else include basePath('views/layout/main.php');
         }
+        else include basePath('views/layout/main.php');
 
         return ob_get_clean();
     }
@@ -81,19 +72,20 @@ class Render
     {
         ob_start();
         extract($args);
-        // index
-        // Auth/login
+
         include basePath("views/{$page}.php");
+
         return ob_get_clean();
     }
 
-    public function renderAlert($content,$alerts,$html) {
-        
+    public function renderAlert($content,$alerts,$html)
+    {
         $li = '';
-        foreach ($alerts as $alert)
-        {
+
+        foreach ($alerts as $alert) {
             $li .= "<li>$alert</li>";
         }
+
         $html = str_replace("{{li}}",$li,$html);
         $this->content = str_replace("{{alert}}",$html,$content);
     }
