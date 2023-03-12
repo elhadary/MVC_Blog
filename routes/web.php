@@ -22,3 +22,4 @@ $router->get('/dashboard',[UserController::class,'dashboard'])->only('auth');
 
 /// Admin
 $router->get('/dashboard/users',[AdminController::class,'showUsers'])->only('admin');
+$router->get('/dashboard/DeleteUser',[AdminController::class,'deleteUser'])->only('admin');

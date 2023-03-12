@@ -21,10 +21,13 @@ class UserController extends Controller
     {
         if($this->user->Auth()['rank'] !== 1)
         {
+
             $this->render->view('User.index');
         }else
         {
-            $this->render->view('Admin.index');
+            $users = $this->user->select()->fetchAll();
+            $count = $this->user->fetchCount;
+            $this->render->view('Admin.index',['count' => $count]);
         }
 
     }

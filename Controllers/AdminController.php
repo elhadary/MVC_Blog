@@ -7,12 +7,34 @@ use app\Models\User;
 
 class AdminController extends Controller
 {
-
-    public function showUsers()
+    public User $user;
+    public function __construct()
     {
-        $users = new User();
-        $users = $users->select()->fetchAll();
-        $this->render->view('Admin.users',['users' => $users]);
+        parent::__construct();
+        $this->user = new User();
+    }
+
+    public function showUsers($array = null)
+    {
+        $users = $this->user->select()->fetchAll();
+        $this->render->view('Admin.users',['users' => $users,'dashAlert' => $array]);
+    }
+
+    public function deleteUser()
+    {
+        if(isset($_GET['id']))
+        {
+            $this->user->delete()->where('id','=',$_GET['id'])->exec();
+            if(!empty($this->user->error))
+            {
+                $this->showUsers(['type' => 'danger','message' => 'Please recheck id']);
+                exit();
+            }
+            $this->showUsers(['type' => 'success','message' => 'user deleted successfully']);
+        }else
+        {
+            header('LOCATION: /dashboard/users');
+        }
     }
 
 }

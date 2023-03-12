@@ -31,13 +31,17 @@ class Render
         $layout = $this->renderLayout($args);
         $content = $this->renderView($path,$args);
         $this->content = str_replace("{{content}}",$content,$layout);
-
-        if(isset($args['errors']))
+        if(isset($args['dashAlert']))
+        {
+           $this->renderDashAlert($this->content,$args['dashAlert']);
+        }
+        elseif(isset($args['errors']))
         {
             $alerts = $args['errors'];
             $this->renderAlert($this->content,$alerts,$this->danger);
 
-        }elseif(isset($args['success']))
+        }
+        elseif(isset($args['success']))
         {
             $alerts = $args['success'];
             $this->renderAlert($this->content,$alerts,$this->success);
@@ -87,7 +91,7 @@ class Render
         return ob_get_clean();
     }
 
-    public function renderAlert($content,$alerts,$html) {
+    private function renderAlert($content,$alerts,$html) {
         
         $li = '';
         foreach ($alerts as $alert)
@@ -96,5 +100,20 @@ class Render
         }
         $html = str_replace("{{li}}",$li,$html);
         $this->content = str_replace("{{alert}}",$html,$content);
+    }
+
+    private function renderDashAlert($content, $dashAlert)
+    {
+
+            if ($dashAlert['type'] == 'danger')
+            {
+                $a = "<div class='alert alert-danger' role='alert'><p class='mb-0'>".$dashAlert['message']."</p></div>";
+                $this->content = str_replace("{{alert}}",$a,$content);
+
+            }elseif ($dashAlert['type'] == 'success')
+            {
+                $a = "<div class='alert alert-success' role='alert'><p class='mb-0'>".$dashAlert['message']."</p></div>";
+                $this->content = str_replace("{{alert}}",$a,$content);
+            }
     }
 }

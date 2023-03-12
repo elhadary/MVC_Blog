@@ -16,6 +16,7 @@ class Model
     protected $table;
     protected $query = '';
     public $error = "";
+    public $fetchCount = 0;
 
     function __construct () {
         $this->conn = new PDO(
@@ -107,6 +108,10 @@ class Model
         $this->stmt = $this->conn->prepare($this->query);
         try {
             $this->stmt->execute();
+            if($this->stmt->rowCount() == 0)
+            {
+                $this->error = 'No rows affected';
+            }
         }catch (\Exception $e)
         {
             echo $e->getMessage();
@@ -117,6 +122,7 @@ class Model
     public function fetchAll()
     {
         $this->result = $this->conn->query($this->query)->fetchAll();
+        $this->fetchCount = $this->conn->query($this->query)->rowCount();
         return $this->result;
     }
 
