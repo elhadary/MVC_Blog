@@ -1,9 +1,10 @@
 <div class="content">
+
     <!-- Dynamic Table Responsive -->
     <div class="block block-rounded">
         <div class="block-header block-header-default">
             <h3 class="block-title">
-                Dynamic Table <small>DataTables Responsive Mode</small>
+                All Users
             </h3>
         </div>
         <div class="block-content block-content-full">
