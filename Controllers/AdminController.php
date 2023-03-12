@@ -10,8 +10,7 @@ class AdminController extends Controller
 
     public function showUsers()
     {
-        $users = new User();
-        $users = $users->select()->fetchAll();
+        $users = (new User())->select()->fetchAll();
         $this->render->view('Admin.users',['users' => $users]);
     }
 

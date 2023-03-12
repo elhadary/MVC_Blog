@@ -3,11 +3,14 @@
 namespace app\Controllers;
 
 use app\Core\Controller;
+use app\Models\User;
 
 class GuestController extends Controller
 {
     public function index()
     {
-        $this->render->view('index',);
+        $users = (new User())->select()->fetchAll();
+        print_r($users);
+        $this->render->view('index');
     }
 }

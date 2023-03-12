@@ -5,12 +5,9 @@ namespace app\Core;
 use PDO;
 use PDOException;
 
-
 class Model
 {
-
-
-    protected $conn = null;
+    static protected $conn = null;
     protected $stmt = null;
     protected $result;
     protected $table;
@@ -18,15 +15,15 @@ class Model
     public $error = "";
 
     function __construct () {
-        $this->conn = new PDO(
-            "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET,
-            DB_USER, DB_PASSWORD, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        ]);
+        if (Model::$conn === null) {
+            Model::$conn = new PDO(
+                "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET,
+                DB_USER, DB_PASSWORD, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]);
+        }
     }
-
-
 
     public function select()
     {
@@ -36,7 +33,6 @@ class Model
 
     public function insert($array = [])
     {
-
         $columns = '(';
         $values = '(';
 
@@ -67,13 +63,13 @@ class Model
         ];
         $vars = '';
         foreach ($array as $key => $value)
+        {
+            $vars .= "`$key` = $value";
+            if(array_key_last($array) !== $key)
             {
-                $vars .= "`$key` = $value";
-                if(array_key_last($array) !== $key)
-                {
-                    $vars .= " , ";
-                }
+                $vars .= " , ";
             }
+        }
 
         $this->query = "UPDATE $this->table SET $vars";
         return $this;
@@ -90,6 +86,7 @@ class Model
         $this->query .= "OR `$one` $condition '$two' ";
         return $this;
     }
+
     public function and($one,$condition,$two)
     {
         $this->query .= "AND `$one` $condition '$two' ";
@@ -101,16 +98,15 @@ class Model
         return $this;
     }
 
-
     public function exec() //EXECUTE
     {
         $this->stmt = $this->conn->prepare($this->query);
         try {
             $this->stmt->execute();
-        }catch (\Exception $e)
-        {
+        }
+        catch (\Exception $e) {
             echo $e->getMessage();
-            header( "refresh:3;url=/register" );
+            header("refresh:3;url=/register");
         }
 
     }
@@ -126,9 +122,9 @@ class Model
         return $this->result;
     }
 
-    function __destruct () {
+    function __destruct ()
+    {
         if ($this->stmt!==null) { $this->stmt = null; }
         if ($this->conn!==null) { $this->conn = null; }
     }
-
 }
