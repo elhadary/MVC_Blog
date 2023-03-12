@@ -21,7 +21,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($users as $user) { ?>
+                <?php foreach ($users as $user) {?>
                 <tr>
                     <td class="text-center"><?= $user['id'] ?></td>
                     <td class="fw-semibold"><?= $user['email'] ?></td>
