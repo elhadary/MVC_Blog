@@ -1,4 +1,2 @@
 *.html linguist-detectable=false
 *.JavaScript linguist-detectable=false
-*.css linguist-detectable=false
-*.hack linguist-language=PHP
