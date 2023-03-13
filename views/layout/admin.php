@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="/assets/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" href="/assets/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css">
 
+    <link rel="stylesheet" href="/assets/js/plugins/simplemde/simplemde.min.css">
+
     <!-- Dashmix framework -->
     <link rel="stylesheet" id="css-main" href="/assets/css/dashmix.min.css">
 
@@ -96,6 +98,20 @@
                             <span class="nav-main-link-name">All Users</span>
                         </a>
                     </li>
+                    <li class="nav-main-heading">Q&A</li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="/dashboard/questions/add">
+                            <i class="nav-main-link-icon fa fa-circle-question"></i>
+                            <span class="nav-main-link-name">Add a question</span>
+                        </a>
+                    </li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="/dashboard/questions">
+                            <i class="nav-main-link-icon fa fa-bars"></i>
+                            <span class="nav-main-link-name">Show all question</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
             <!-- END Side Navigation -->
@@ -221,6 +237,11 @@
 
 <!-- Page JS Code -->
 <script src="/assets/js/pages/be_tables_datatables.min.js"></script>
+<script src="/assets/js/plugins/simplemde/simplemde.min.js"></script>
+<script src="/assets/js/plugins/ckeditor/ckeditor.js"></script>
+
+<!-- Page JS Helpers (SimpleMDE + CKEditor plugins) -->
+<script>Dashmix.helpersOnLoad(['js-ckeditor', 'js-simplemde']);</script>
 
 </body>
 </html>

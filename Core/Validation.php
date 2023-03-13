@@ -33,7 +33,7 @@ class Validation
                 }
             }
         }
-        $this->input =  htmlspecialchars($this->input);
+        $this->input =  filter_var($this->input,FILTER_SANITIZE_SPECIAL_CHARS);
         return $this;
     }
 

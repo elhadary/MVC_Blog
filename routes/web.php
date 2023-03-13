@@ -5,6 +5,7 @@ use app\Controllers\GuestController;
 use app\Controllers\AuthController;
 use app\Controllers\UserController;
 use app\Controllers\AdminController;
+use app\Controllers\QuestionController;
 
 $router = new Router();
 
@@ -23,3 +24,8 @@ $router->get('/dashboard',[UserController::class,'dashboard'])->only('auth');
 /// Admin
 $router->get('/dashboard/users',[AdminController::class,'showUsers'])->only('admin');
 $router->get('/dashboard/DeleteUser',[AdminController::class,'deleteUser'])->only('admin');
+
+// Questions
+$router->get('/dashboard/questions',[QuestionController::class,'showQuestions'])->only('admin');
+$router->get('/dashboard/questions/add',[QuestionController::class,'addQuestion'])->only('admin');
+$router->post('/dashboard/questions/add',[QuestionController::class,'PostQuestion'])->only('admin');

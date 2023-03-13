@@ -54,6 +54,7 @@ class AuthController extends Controller
         if ($user['password'] == $passwordInput)
         {
             $_SESSION['email'] = $emailInput;
+            $_SESSION['id'] = $user['id'];
             header('LOCATION: /dashboard');
         }else
         {
