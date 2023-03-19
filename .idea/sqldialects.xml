@@ -2,5 +2,6 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/Core/Model.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/mvc_blog.sql" dialect="MariaDB" />
   </component>
 </project>
