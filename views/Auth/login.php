@@ -23,6 +23,14 @@
 <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-md space-y-8">
         <div>
+            <h2>Credentials</h2>
+            <div href="#" class="block  p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">admin@locksmithlascruces.com:admin</h6>
+            </div><br>
+            <div href="#" class="block  p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">user@user.com:useruser</h6>
+            </div>
+
             <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
 
         </div>
