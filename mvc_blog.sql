@@ -91,7 +91,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `rank`) VALUES
 (35, 'user@user.com', 'useruser', 0),
-(36, 'admin@locksmithlascruces.com', 'admin', 1);
+(36, 'admin@admin.com', 'admin', 1);
 
 --
 -- Indexes for dumped tables

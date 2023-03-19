@@ -25,7 +25,7 @@
         <div>
             <h2>Credentials</h2>
             <div href="#" class="block  p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">admin@locksmithlascruces.com:admin</h6>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">admin@admin.com:admin</h6>
             </div><br>
             <div href="#" class="block  p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">user@user.com:useruser</h6>
