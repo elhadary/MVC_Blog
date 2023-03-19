@@ -14,6 +14,12 @@ class AdminController extends Controller
         $this->user = new User();
     }
 
+    public function index()
+    {
+        $users = $this->user->select()->fetchAll();
+        $this->render->view('Admin.index',['count' => count($users)]);
+    }
+
     public function showUsers($array = null)
     {
         $users = $this->user->select()->fetchAll();

@@ -1,14 +1,18 @@
 <?php
+session_start();
+
 require '../vendor/autoload.php';
+
 use app\Core\Application;
-use app\Core\Model;
-use app\Core\Controller;
 use app\Core\Request;
 use app\Core\Router;
 
 require '../Support/bootstrap.php';
 
-$app = new Application();
+$request = new Request();
+$router = new Router();
+
+$app = new Application($request,$router);
 
 
 

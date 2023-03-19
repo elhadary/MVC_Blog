@@ -53,29 +53,10 @@
               <span class="smini-visible">
                 D<span class="opacity-75">x</span>
               </span>
-                    <span class="smini-hidden">
-                Dash<span class="opacity-75">mix</span>
+                    <span class="smini-hidden opacity-75">
+                <?= htmlspecialchars('<?=')?><span class="opacity-50"> Fares</span>
               </span>
                 </a>
-                <!-- END Logo -->
-
-                <!-- Options -->
-                <div>
-
-                    <!-- Dark Mode -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle" data-target="#dark-mode-toggler" data-class="far fa" onclick="Dashmix.layout('dark_mode_toggle');">
-                        <i class="far fa-moon" id="dark-mode-toggler"></i>
-                    </button>
-                    <!-- END Dark Mode -->
-                    <!-- Close Sidebar, Visible only on mobile screens -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout" data-action="sidebar_close">
-                        <i class="fa fa-times-circle"></i>
-                    </button>
-                    <!-- END Close Sidebar -->
-                </div>
-                <!-- END Options -->
             </div>
         </div>
         <!-- END Side Header -->
@@ -100,15 +81,15 @@
                     </li>
                     <li class="nav-main-heading">Q&A</li>
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="/dashboard/questions/add">
-                            <i class="nav-main-link-icon fa fa-circle-question"></i>
-                            <span class="nav-main-link-name">Add a question</span>
+                        <a class="nav-main-link" href="/dashboard/blogs/add">
+                            <i class="nav-main-link-icon fa-solid fa-rss"></i>
+                            <span class="nav-main-link-name">Add a blog</span>
                         </a>
                     </li>
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="/dashboard/questions">
+                        <a class="nav-main-link" href="/dashboard/blogs">
                             <i class="nav-main-link-icon fa fa-bars"></i>
-                            <span class="nav-main-link-name">Show all question</span>
+                            <span class="nav-main-link-name">Show all blogs</span>
                         </a>
                     </li>
 

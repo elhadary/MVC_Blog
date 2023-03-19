@@ -1,11 +1,12 @@
 <?php
 
+use app\Controllers\CommentController;
 use app\Core\Router;
 use app\Controllers\GuestController;
 use app\Controllers\AuthController;
 use app\Controllers\UserController;
 use app\Controllers\AdminController;
-use app\Controllers\QuestionController;
+use app\Controllers\BlogController;
 
 $router = new Router();
 
@@ -17,15 +18,26 @@ $router->get('/register',[AuthController::class,'register'])->only('guest');
 $router->post('/register',[AuthController::class,'postRegister'])->only('guest');
 $router->get('/logout',[AuthController::class,'logout']);
 
-$router->get('/dashboard',[UserController::class,'dashboard'])->only('auth');
-
 
 
 /// Admin
+ $router->get('/dashboard',[AdminController::class,'index'])->only('admin');
 $router->get('/dashboard/users',[AdminController::class,'showUsers'])->only('admin');
 $router->get('/dashboard/DeleteUser',[AdminController::class,'deleteUser'])->only('admin');
 
-// Questions
-$router->get('/dashboard/questions',[QuestionController::class,'showQuestions'])->only('admin');
-$router->get('/dashboard/questions/add',[QuestionController::class,'addQuestion'])->only('admin');
-$router->post('/dashboard/questions/add',[QuestionController::class,'PostQuestion'])->only('admin');
+// Blogs controller of admin
+$router->get('/blog',[BlogController::class,'showBlog']);
+$router->get('/dashboard/blogs',[BlogController::class,'showBlogs'])->only('admin');
+$router->get('/dashboard/blogs/add',[BlogController::class,'addBlog'])->only('admin');
+$router->post('/dashboard/blogs/add',[BlogController::class,'postBlog'])->only('admin');
+
+$router->get('/dashboard/blog',[BlogController::class,'showAdminBlog'])->only('admin');
+
+
+//User
+$router->get('/index',[UserController::class,'index']);
+
+// Comments
+
+$router->post('/addComment',[CommentController::class,'addComment'])->only('auth');
+

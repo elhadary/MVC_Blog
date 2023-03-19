@@ -4,13 +4,10 @@ namespace app\Core;
 
 class Application
 {
-    public Request $request;
-    public Router $router;
-    public Session $session;
 
-    public function __construct()
+
+    public function __construct(public Request $request,public Router $router)
     {
-        $this->session = new Session();
         $this->request = new Request();
         $this->router = new Router();
     }

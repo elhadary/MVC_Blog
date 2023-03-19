@@ -4,6 +4,7 @@ namespace app\Controllers;
 
 use app\Core\Controller;
 use app\Models\User;
+use app\Models\Blog;
 
 class UserController extends Controller
 {
@@ -17,18 +18,10 @@ class UserController extends Controller
 
 
 
-    public function dashboard()
-    {
-        if($this->user->Auth()['rank'] !== 1)
-        {
+    public function index(){
 
-            $this->render->view('User.index');
-        }else
-        {
-            $users = $this->user->select()->fetchAll();
-            $count = $this->user->fetchCount;
-            $this->render->view('Admin.index',['count' => $count]);
-        }
-
+        $blogs = (new Blog)->select()->fetchAll();
+        $this->render->view('User.index',['blogs' => $blogs]);
     }
+
 }
