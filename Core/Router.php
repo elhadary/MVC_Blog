@@ -3,6 +3,7 @@
 namespace app\Core;
 
 use app\Core\Middleware\Middleware;
+use DI\Container;
 
 class Router
 {
@@ -11,11 +12,14 @@ class Router
     public Render $render;
     public Middleware $middleware;
     public array $lastRouter;
+    public Container $c;
 
-    public function __construct()
+    public function __construct(Container $c)
     {
-        $this->request = new Request();
-        $this->render = new Render();
+        $this->c = $c;
+        $this->request = $c->get(Request::class);
+        $this->render = $c->get(Render::class);
+        $this->middleware = $c->get(Middleware::class);
     }
 
     public function only($rank)
@@ -54,7 +58,7 @@ class Router
         if(isset(self::$routes[$method][$path]['middleware']))
         {
 
-            (new Middleware)->resolve(self::$routes[$method][$path]['middleware']);
+            $this->middleware->resolve(self::$routes[$method][$path]['middleware']);
         }
 
         if(!$action) {
@@ -70,7 +74,7 @@ class Router
 
         if (is_array($action))
         {
-            call_user_func([new $action[0],$action[1]]);
+            call_user_func([$this->c->get($action[0]),$action[1]]);
         }
     }
 

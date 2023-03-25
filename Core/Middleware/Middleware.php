@@ -3,6 +3,7 @@
 namespace app\Core\Middleware;
 
 use app\Core\Middleware\Authenticated;
+use DI\Container;
 
 class Middleware
 {
@@ -15,6 +16,7 @@ class Middleware
 
     public static function resolve($key)
     {
+        $c = new Container();
         if (!$key) {
             return;
         }
@@ -25,7 +27,7 @@ class Middleware
             throw new \Exception("No matching middleware found for key '{$key}'.");
         }
 
-        (new $middleware)->handle();
+        ($c->get($middleware))->handle();
 
     }
 

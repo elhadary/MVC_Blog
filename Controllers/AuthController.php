@@ -3,17 +3,18 @@
 namespace app\Controllers;
 
 use app\Core\Controller;
-use app\Core\Session;
 use app\Models\User;
+use DI\Container;
 
 class AuthController extends Controller
 {
     public User $user;
     public array $variables = [];
-    public function __construct()
+
+    public function __construct(Container $c)
     {
-        parent::__construct();
-        $this->user = new User();
+        parent::__construct($c);
+        $this->user = $c->get(User::class);
     }
 
     public function login()

@@ -3,6 +3,7 @@
 namespace app\Core;
 
 use app\Models\User;
+use DI\Container;
 
 class Render
 {
@@ -65,7 +66,7 @@ class Render
         extract($args);
         if(isset($_SESSION['email']))
         {
-            if((new User)->Auth()['rank'] == 1){
+            if((new Container)->get(User::class)->Auth()['rank'] == 1){
                 include basePath('views/layout/admin.php');
             }else
             {

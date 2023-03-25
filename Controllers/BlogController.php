@@ -6,16 +6,21 @@ use app\Core\Controller;
 use app\Core\Validation;
 use app\Models\Blog;
 use app\Models\Comment;
-use app\Models\User;
+use DI\Container;
 
 class BlogController extends Controller
 {
 
     public Blog $blog;
-    public function __construct()
+    public Comment $comment;
+
+    public function __construct(Container $c)
     {
-        parent::__construct();
-        $this->blog = new Blog();
+        parent::__construct($c);
+        $this->blog = $c->get(Blog::class);
+        $this->comment = $c->get(Comment::class);
+
+
     }
 
     public function showBlogs()
@@ -30,7 +35,7 @@ class BlogController extends Controller
             $blog = $this->blog->find($_GET['id']);
             if ($blog)
             {
-                $comments = (new Comment)->getBlogComments($_GET['id']);
+                $comments = $this->comment->getBlogComments($_GET['id']);
                 $this->render->view('blogs.singleBlog',['blog' => $blog,'comments' => $comments]);
                 exit();
             }
@@ -46,7 +51,7 @@ class BlogController extends Controller
             $blog = $this->blog->find($_GET['id']);
             if ($blog)
             {
-                $comments = (new Comment)->getBlogComments($_GET['id']);
+                $comments = $this->comment->getBlogComments($_GET['id']);
                 $this->render->view('admin.adminSingleBlog',['blog' => $blog,'comments' => $comments]);
                 exit();
             }
@@ -64,7 +69,7 @@ class BlogController extends Controller
     public function postBlog()
     {
         $blog = $_POST['text'];
-        $blog = (new Validation)->validate($blog,['min:5']);
+        $blog = $this->validation->validate($blog,['min:5']);
         if(!empty($blog->errors))
         {
             $this->render->view('blogs.addBlog',['dashAlert' => ['type' => 'danger', 'message' => reset($blog->errors)]]);

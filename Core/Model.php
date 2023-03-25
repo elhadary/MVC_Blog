@@ -2,6 +2,7 @@
 
 namespace app\Core;
 
+use DI\Container;
 use PDO;
 use PDOException;
 
@@ -18,7 +19,8 @@ class Model
     public $error = "";
     public $fetchCount = 0;
 
-    function __construct () {
+    function __construct (Container $c) {
+
         $this->conn = new PDO(
             "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET,
             DB_USER, DB_PASSWORD, [

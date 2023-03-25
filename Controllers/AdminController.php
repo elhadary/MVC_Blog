@@ -4,14 +4,16 @@ namespace app\Controllers;
 
 use app\Core\Controller;
 use app\Models\User;
+use DI\Container;
 
 class AdminController extends Controller
 {
     public User $user;
-    public function __construct()
+    public function __construct(Container $c)
     {
-        parent::__construct();
-        $this->user = new User();
+
+        parent::__construct($c);
+        $this->user = $c->get(User::class);
     }
 
     public function index()

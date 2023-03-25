@@ -8,7 +8,7 @@ use app\Controllers\UserController;
 use app\Controllers\AdminController;
 use app\Controllers\BlogController;
 
-$router = new Router();
+$router = $c->get(Router::class);
 
 $router->get('/',[GuestController::class,'index'])->only('guest');
 

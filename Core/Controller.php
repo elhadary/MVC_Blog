@@ -1,17 +1,20 @@
 <?php
 
 namespace app\Core;
-use app\Core\Validation;
+
+use DI\Container;
 
 class Controller
 {
     public Render $render;
     public Validation $validation;
+    protected Container $c;
 
-    public function __construct()
+    public function __construct(Container $c)
     {
-        $this->render = new Render();
-        $this->validation = new Validation();
+        $this->c = $c;
+        $this->render = $c->get(Render::class);
+        $this->validation = $c->get(Validation::class);
     }
 
 }
